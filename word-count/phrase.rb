@@ -8,7 +8,7 @@ class Phrase
   end
 
   def word_count
-    words.inject(Hash.new(0)) {|h, w| h[w] += 1; h }
+    words.each_with_object(Hash.new(0)) { |word, hash| hash[word] += 1 }
   end
 
 
