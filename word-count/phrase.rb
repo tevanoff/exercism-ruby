@@ -15,10 +15,6 @@ class Phrase
   private
 
   def words
-    normalize.split(' ')
-  end
-
-  def normalize
-    text.downcase.gsub(/[^0-9a-z ]/, '')
+    text.downcase.split(/[^0-9a-z]/).reject { |word| word.empty? }
   end
 end
