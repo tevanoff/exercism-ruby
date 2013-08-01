@@ -17,7 +17,7 @@ class AnagramAnalyzer
   attr_reader :anagrams
 
   def initialize(words)
-    @anagrams = create_anagrams(words)
+    @anagrams = analyze(words)
   end
 
   def find(word)
@@ -28,10 +28,10 @@ class AnagramAnalyzer
   private
 
   def key_for(word)
-    word.downcase.chars.sort.join
+    word.downcase.chars.sort
   end
 
-  def create_anagrams(words)
+  def analyze(words)
     initial = Hash.new { |hash, key| hash[key] = [] }
     words.each_with_object(initial) { |word, hash| hash[key_for(word)] << word }
   end
