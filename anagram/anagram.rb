@@ -8,7 +8,7 @@ class Anagram
   end
 
   def match(words)
-    AnagramAnalyzer.new(words).find(word)
+    AnagramAnalyzer.new(words).match(word)
   end
 end
 
@@ -20,7 +20,7 @@ class AnagramAnalyzer
     @anagrams = analyze(words)
   end
 
-  def find(word)
+  def match(word)
     anagrams[key_for(word)]
   end
 
@@ -32,7 +32,8 @@ class AnagramAnalyzer
   end
 
   def analyze(words)
-    initial = Hash.new { |hash, key| hash[key] = [] }
-    words.each_with_object(initial) { |word, hash| hash[key_for(word)] << word }
+    words.each_with_object(Hash.new {|hash, key| hash[key] = []}) do |word, anagrams| 
+      anagrams[key_for(word)] << word
+    end
   end
 end
