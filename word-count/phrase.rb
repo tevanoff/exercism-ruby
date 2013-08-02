@@ -1,14 +1,10 @@
 
-class Phrase
-
-  attr_reader :text
-
-  def initialize(text)
-    @text = text
-  end
+class Phrase < Struct.new(:text)
 
   def word_count
-    words.each_with_object(Hash.new(0)) { |word, hash| hash[word] += 1 }
+    words.each_with_object(Hash.new(0)) do |word, word_counts| 
+      word_counts[word] += 1
+    end
   end
 
 
