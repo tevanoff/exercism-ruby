@@ -8,32 +8,26 @@ class Anagram
   end
 
   def match(words)
-    AnagramAnalyzer.new(words).match(word)
+    words.select do |candidate|
+      AnagramAnalyzer.new(word, candidate).match?
+    end
   end
 end
 
 class AnagramAnalyzer
   
-  attr_reader :anagrams
-
-  def initialize(words)
-    @anagrams = analyze(words)
+  def initialize(word, candidate)
+    @word       = normalize word
+    @candidate  = normalize candidate
   end
 
-  def match(word)
-    anagrams[key_for(word)]
+  def match?
+    @word == @candidate
   end
-
 
   private
 
-  def key_for(word)
+  def normalize(word)
     word.downcase.chars.sort
-  end
-
-  def analyze(words)
-    words.each_with_object(Hash.new {|hash, key| hash[key] = []}) do |word, anagrams| 
-      anagrams[key_for(word)] << word
-    end
   end
 end
